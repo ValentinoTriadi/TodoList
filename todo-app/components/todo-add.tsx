@@ -45,7 +45,7 @@ export const TodoAdd = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-[80%] flex justify-center items-center gap-5">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-[80%] flex justify-center items-start gap-5 min-h-[7%]">
         <FormField
           control={form.control}
           name="newTask"
