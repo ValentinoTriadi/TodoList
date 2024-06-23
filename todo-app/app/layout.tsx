@@ -10,6 +10,19 @@ export const metadata: Metadata = {
   description: "A Todo List Application",
   manifest: "/manifest.json",
   // viewport: "width=device-width, initial-scale=1",
+  icons: [
+      {
+        rel: "icon",
+        href: "/apple-touch-icon.png",
+        url: "/apple-touch-icon.png",
+      },
+      {
+        rel: "apple-touch-icon",
+        href: "/apple-touch-icon.png",
+        url: "/apple-touch-icon.png",
+        sizes: "180x180",
+      },
+    ],
 };
 
 export default function RootLayout({
@@ -19,6 +32,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/apple-touch-icon.png" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+      </head>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
