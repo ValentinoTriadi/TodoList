@@ -1,10 +1,10 @@
 "use server";
 
-import prisma from "@/lib/prisma"
+import { db } from "@/lib/prisma"
 
 // Get all the todo items
 export const getTodoList = async () => {
-    return await prisma.todo.findMany({
+    return await db.todo.findMany({
         orderBy: [
             {
                 priority: "desc"
