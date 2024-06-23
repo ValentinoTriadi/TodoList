@@ -63,7 +63,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Simple Todo List Progressive Web App that can be used to manage your daily tasks. This project is built as a Progressive Web App (PWA) which means it can be installed on your device and can be used offline.
+<img src="todo-app/public/image.png">
+Simple Todo List Progressive Web App that can be used to manage your daily tasks. This project is built as a Progressive Web App (PWA) which means it can be installed on your device (Dekstop or Mobile).
 
 <br/>
 
@@ -117,6 +118,12 @@ Simple Todo List Progressive Web App that can be used to manage your daily tasks
 5. Enjoy!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## Installation
+
+1. Open ```https://todo-list-sandy-delta.vercel.app/```
+2. Click on the `Install` button or `Add to Home Screen` button
 
 
 <!-- PROJECT STATUS -->
