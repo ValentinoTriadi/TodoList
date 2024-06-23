@@ -38,7 +38,6 @@ export const TodoBox = ({data, refreshData} : TodoBoxProps) => {
               const todoItem : TodoElementProps = {
                 item: item,
                 index: index,
-                refreshData: refreshData,
                 deleteHandler: deleteHandler,
                 isLoading: isLoading
               }

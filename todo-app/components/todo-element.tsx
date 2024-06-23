@@ -18,12 +18,11 @@ export interface TodoItem {
 export interface TodoElementProps {
   item: TodoItem
   index: number
-  refreshData: () => void
   deleteHandler: (id: number) => void
   isLoading: boolean
 }
 
-export const TodoElement = ({item, index, refreshData, deleteHandler, isLoading} : TodoElementProps) => {
+export const TodoElement = ({item, index, deleteHandler, isLoading} : TodoElementProps) => {
   const { id, title, completed, priority } = item; // Destructure the item object
   
   // State

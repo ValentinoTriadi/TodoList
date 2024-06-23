@@ -28,7 +28,7 @@ export const updateCompleted = async (id: number, completed: boolean) => {
 
 // Delete a todo item
 export const deleteTodo = async (id: number) => {
-    return await prisma.todo.delete({
+    return await db.todo.delete({
         where: {
             id
         }
