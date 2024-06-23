@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Todo List",
   description: "A Todo List Application",
   manifest: "/manifest.json",
-  
+  viewport: "width=device-width, initial-scale=1",
 };
 
 export default function RootLayout({

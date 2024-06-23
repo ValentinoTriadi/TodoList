@@ -5,6 +5,7 @@ import { Separator } from "./ui/separator"
 import { cn } from "@/lib/utils"
 import { Priority } from "@prisma/client"
 import { deleteTodo, updateCompleted } from "@/action/Todo.action"
+import Image from "next/image"
 
 
 export interface TodoItem {
@@ -46,12 +47,12 @@ export const TodoElement = ({item, index, refreshData, deleteHandler, isLoading}
     <div className="w-full">
       {index != 0 && <Separator className="my-2"/>}
       <div className="flex items-center justify-between w-full h-fit min-h-12">
-        <div className="flex items-center justify-start gap-5">
+        <div className="flex items-center justify-start gap-5 max-w-[180px] sm:max-w-[400px] md:max-w-full w-full">
           <Checkbox checked={checked} onClick={checkHandler}/>
-          <p className={cn(priorityColor, strikeThrough)}>{title}</p>
+          <p className={cn(priorityColor, strikeThrough, "break-words max-w-[90%]")}>{title}</p>
         </div>
-        <div className="flex items-center justify-end gap-5">
-          <Button onClick={() => deleteHandler(id)} className="hover:text-destructive" disabled={isLoading}>DELETE</Button>
+        <div className="flex items-center justify-end gap-5 w-fit">
+          <Button onClick={() => deleteHandler(id)} className="hover:text-destructive" disabled={isLoading}>{screen.width > 768 ? "DELETE" : <Image src={"/trash.svg"} width={20} height={20} alt="DELETE"/>}</Button>
         </div>
       </div>
     </div>

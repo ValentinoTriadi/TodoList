@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
     <main className="flex h-screen flex-col items-center justify-start py-10 bg-gradient-to-br from-background to-background2">
-      <h1 className="text-4xl font-bold pb-[2%]">TODO LIST APP</h1>
+      <h1 className="text-4xl font-bold pb-[25px] md:pb-[40px]">TODO LIST APP</h1>
       <TodoAdd refreshData={fetchData}/>
       <TodoBox data={data} refreshData={fetchData}/>
     </main>
