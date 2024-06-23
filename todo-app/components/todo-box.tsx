@@ -1,67 +1,46 @@
 'use client';
 
-import { TodoAdd } from "./todo-add";
-import { Priority, TodoElement, TodoElementProps, TodoItem } from "./todo-element";
-import { Button } from "./ui/button";
-import { Checkbox } from "./ui/checkbox";
+import { deleteTodo } from "@/action/Todo.action";
+import { TodoElement, TodoElementProps, TodoItem } from "./todo-element";
 import { ScrollArea } from "./ui/scroll-area";
-import { Separator } from "./ui/separator";
+import { useState, useTransition } from "react";
 
-export const TodoBox = () => {
+export interface TodoBoxProps {
+  data: TodoItem[]
+  refreshData: () => void
+}
 
-  const dummy : TodoItem[] = [
-    {
-      id: 1,
-      title: "Create a Button component",
-      completed: false,
-      priority: Priority.HIGH
-    },
-    {
-      id: 2,
-      title: "Create a Checkbox component",
-      completed: false,
-      priority: Priority.MEDIUM
-    },
-    {
-      id: 3,
-      title: "Create a AddTodo component",
-      completed: false,
-      priority: Priority.LOW
-    },
-    {
-      id: 4,
-      title: "Create a DeleteTodo component",
-      completed: false,
-      priority: Priority.HIGH
-    },
-    {
-      id: 5,
-      title: "Create a EditTodo component",
-      completed: false,
-      priority: Priority.MEDIUM
-    },
-    {
-      id: 6,
-      title: "Create a FilterTodo component",
-      completed: false,
-      priority: Priority.LOW
-    }
-  ]
+export const TodoBox = ({data, refreshData} : TodoBoxProps) => {
 
-  function handleCheckBoxClick(item: any) {
-    console.log("clicked");
+  /*
+    Create a Delete Button Loading Handler
+    purpose: to handle the loading state of the delete button and to limir the number of delete to 1 at a time
+  */
+  const [isLoading, setIsLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const deleteHandler = async (id:number) => {
+    setIsLoading(true);
+    startTransition(() => {
+      deleteTodo(id).then(() => {
+        refreshData();
+        setIsLoading(false);
+      });
+		})
   }
 
   return (
     <div className="w-full h-[85%] flex flex-col items-center justify-start pt-5">
       <div className="flex flex-col items-center justify-center w-[80%] h-fit max-h-full bg-card rounded-lg border border-border p-2">
-        {/* <h1 className="text-2xl font-semibold my-2 text-accent">TODO BOX</h1> */}
         <ScrollArea className="w-full">
           <div className="flex flex-col items-center justify-center w-full h-full px-5">
-            {dummy.map((item, index) => {
+            {data.length === 0 && <p className="text-lg text-center">No Todos Found!</p>}
+            {data.map((item, index) => {
               const todoItem : TodoElementProps = {
                 item: item,
-                index: index
+                index: index,
+                refreshData: refreshData,
+                deleteHandler: deleteHandler,
+                isLoading: isLoading
               }
               return (
                 <TodoElement {...todoItem} key={index}/>

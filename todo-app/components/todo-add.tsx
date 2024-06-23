@@ -23,13 +23,22 @@ import { Input } from "@/components/ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import { addTodo } from "@/action/Todo.action";
+import { useState, useTransition } from "react";
  
 const formSchema = z.object({
   newTask: z.string().min(1).max(50),
   priority: z.enum(["HIGH", "MEDIUM", "LOW"]),
 })
 
-export const TodoAdd = () => {
+export interface TodoAddProps {
+  refreshData: () => void
+}
+
+export const TodoAdd = ({ refreshData }:TodoAddProps) => {
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [isPending, startTransition] = useTransition()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -40,12 +49,21 @@ export const TodoAdd = () => {
   })
  
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+    const { newTask, priority } = values;
+    setIsLoading(true);
+    startTransition(() => {
+      addTodo(newTask, priority).then(() => {
+        refreshData();
+        setIsLoading(false);
+      });
+		})
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-[80%] flex justify-center items-start gap-5 min-h-[7%]">
+
+        {/* NEW TODO INPUT */}
         <FormField
           control={form.control}
           name="newTask"
@@ -58,6 +76,8 @@ export const TodoAdd = () => {
             </FormItem>
           )}
         />
+
+        {/* PRIORITY SELECTION */}
         <FormField
           control={form.control}
           name="priority"
@@ -79,7 +99,9 @@ export const TodoAdd = () => {
             </FormItem>
           )}
         />
-        <Button type="submit">Add</Button>
+          
+        {/* ADD BUTTON */}
+        <Button type="submit" disabled={isLoading}>Add</Button>
       </form>
     </Form>
   );
